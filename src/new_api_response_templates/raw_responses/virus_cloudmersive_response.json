@@ -1,0 +1,20 @@
+{
+    "source": "cloudmersive",
+    "success": true,
+    "data": {
+        "id": "/home/erik/Repos/MICS_Capstone local/src/new_api_response_templates /new_fetch_raw.py",
+        "is_malicious": false,
+        "risk_factors": {
+            "contains_executable": false,
+            "contains_invalid_file": false,
+            "contains_script": false,
+            "contains_password_protected_file": false,
+            "contains_restricted_file_format": false
+        },
+        "file_info": {
+            "verified_file_format": null
+        },
+        "threats": []
+    },
+    "error": null
+}

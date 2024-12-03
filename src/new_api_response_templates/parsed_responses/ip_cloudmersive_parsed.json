@@ -1,0 +1,23 @@
+{
+    "Source": "cloudmersive",
+    "Identifier": "109.120.176.11",
+    "Country Code": "RU",
+    "Country": "Russia",
+    "City": null,
+    "Region Code": null,
+    "Region": null,
+    "Zip Code": null,
+    "Timezone": "Europe/Moscow",
+    "Latitude": 55.7386,
+    "Longitude": 37.6068,
+    "Is EU": false,
+    "Currency Code": "RUB",
+    "Currency Name": "Russian Ruble",
+    "Region Area": "Europe",
+    "Subregion Area": "EasternEurope",
+    "Reverse DNS Hostname": "AKoryakin.aeza.network",
+    "Is Bot": true,
+    "Is Tor Node": false,
+    "Is Threat": true,
+    "Threat Type": null
+}

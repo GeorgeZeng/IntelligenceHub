@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<h1 class="contact-title">Contact Us</h1>
+
+<!-- Contact Form -->
+<div class="contact-form-container">
+
+    {% if email_sent  %}
+    <h3>Thanks for contacting us, we will reply you shortly.</h3>
+    {% endif %}
+    
+    {% if not email_sent  %}
+        <form method="post" action="/contact">
+
+            <label for="name">Your Name:</label>
+            <br>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+            <label for="email">Your Email:</label>
+            <br>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <label for="message">Your Message:</label>
+            <br>
+            <textarea id="message" name="message" rows="8" placeholder="Write your message here" required></textarea>
+
+            <button type="submit" class="btn">Send Message</button>
+
+        </form>
+    {% endif %}
+</div>
+
+{% endblock page_content %}

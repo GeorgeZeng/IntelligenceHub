@@ -1,0 +1,8 @@
+.venv
+.env
+__pycache__
+venv
+.DS_Store
+tmp
+.history
+flask_session

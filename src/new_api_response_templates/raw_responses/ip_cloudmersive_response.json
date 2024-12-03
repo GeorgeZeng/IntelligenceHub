@@ -1,0 +1,36 @@
+{
+    "success": true,
+    "source": "cloudmersive",
+    "data": {
+        "ip_intelligence": {
+            "ip_address": "109.120.176.11",
+            "is_bot": true,
+            "is_tor_node": false,
+            "is_threat": true,
+            "is_eu": false,
+            "location": {
+                "country_code": "RU",
+                "country_name": "Russia",
+                "city": null,
+                "region_code": null,
+                "region_name": null,
+                "zip_code": null,
+                "timezone_standard_name": "Europe/Moscow",
+                "latitude": 55.7386,
+                "longitude": 37.6068
+            },
+            "currency_code": "RUB",
+            "currency_name": "Russian Ruble",
+            "region_area": "Europe",
+            "subregion_area": "EasternEurope"
+        },
+        "reverse_dns": {
+            "successful": true,
+            "host_name": "AKoryakin.aeza.network"
+        },
+        "domain_quality": {
+            "domain_quality_score": 0.0
+        }
+    },
+    "error": null
+}

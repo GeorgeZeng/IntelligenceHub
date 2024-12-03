@@ -1,0 +1,15 @@
+{
+    "Source": "virustotal",
+    "Identifier": "statsrvv.com",
+    "Reputation": 0,
+    "Total Votes": "harmless: 0, malicious: 0",
+    "Malicious": 13,
+    "Suspicious": 2,
+    "Undetected": 29,
+    "Harmless": 50,
+    "Timeout": 0,
+    "Creation Date": "2024-07-14 20:00:00",
+    "Last Update Date": "2024-07-14 20:00:00",
+    "WHOIS": "Administrative city: Reykjavik\nAdministrative country: Iceland\nAdministrative email: 6160278730a84584s@withheldforprivacy.com\nAdministrative state: Capital Region\nCreate date: 2024-07-15 00:00:00\nDomain name: statsrvv.com\nDomain registrar id: 1068\nDomain registrar url: http://www.namecheap.com\nExpiry date: 2025-07-15 00:00:00\nName server 1: annabel.ns.cloudflare.com\nName server 2: norm.ns.cloudflare.com\nQuery time: 2024-07-16 10:39:24\nRegistrant city: ddbf76e4e8cee320\nRegistrant company: 4b7a0912c26a13e2\nRegistrant country: Iceland\nRegistrant email: 6160278730a84584s@withheldforprivacy.com\nRegistrant name: 37bfbc24cafea5d2\nRegistrant phone: fc40cd552aeaa6b8\nRegistrant state: 3e0204199d8ebf9c\nRegistrant zip: f206c9d9737ad45d\nTechnical city: Reykjavik\nTechnical country: Iceland\nTechnical email: 6160278730a84584s@withheldforprivacy.com\nTechnical state: Capital Region\nUpdate date: 2024-07-15 00:00:00",
+    "Last DNS Records": "Type: AAAA; 2606:4700:3031::6815:1f6e\nType: A; 104.21.31.110\nType: NS; norm.ns.cloudflare.com\nType: A; 172.67.176.60\nType: NS; annabel.ns.cloudflare.com\nType: AAAA; 2606:4700:3036::ac43:b03c\nType: SOA; annabel.ns.cloudflare.com"
+}

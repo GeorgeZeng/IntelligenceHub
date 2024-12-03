@@ -1,0 +1,404 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+
+<div class="content">
+
+    <div class="spacer"></div>
+    <div class="spacer"></div>
+
+    <!-- Choose method with radio buttons -->
+    <div class="flex-container">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/NewLogo.png') }}" alt="Intelligence Hub" style="width: 150px; height: auto;">
+        </div>
+        <div class="form-container">
+            <!-- Choose method with radio buttons -->
+            <form method="post">
+                <div class="radio-group">
+                    <input type="radio" id="first" name="choice" value="first" onchange="this.form.submit()"
+                        {% if selected_choice == 'first' %}checked{% endif %}>
+                    <label for="first">IP Address/Domain Name/Hash of file</label><br>
+
+                    <input type="radio" id="second" name="choice" value="second" onchange="this.form.submit()"
+                        {% if selected_choice == 'second' %}checked{% endif %}>
+                    <label for="second">File</label>
+
+                    <input type="radio" id="third" name="choice" value="third" onchange="this.form.submit()"
+                        {% if selected_choice == 'third' %}checked{% endif %}>
+                    <label for="third">Log</label>
+                </div>
+            </form>
+
+            <!-- First option: input field and submit button -->
+            {% if selected_choice == 'first' %}
+            <h3>Enter an IP Address/Domain Name/Hash of a file</h3>
+            <form method="post" action="/">
+                <input type="hidden" name="choice" value="first">
+                <input type="text" id="text-input" name="text-input" pattern="[a-zA-Z0-9.]*" placeholder="Enter an IP Address/Domain Name/Hash of a File" title="Only alphanumeric characters and periods are allowed." required>
+                <button type="submit" class="btn">Submit</button>
+            </form>
+            {% endif %}
+
+            <!-- Second option: file upload -->
+            {% if selected_choice == 'second' %}
+            <h3>Select a file to upload (max file size 16MB):</h3>
+            <form method="post" action="/" enctype="multipart/form-data">
+                <input type="hidden" name="choice" value="second">
+                <input type="file" id="file-upload" name="file-upload" required>
+                <button type="submit" class="btn">Upload</button>
+            </form>
+            {% endif %}
+
+            <!-- Third option: logs file upload -->
+            {% if selected_choice == 'third' %}
+            <form method="post" action="/" enctype="multipart/form-data">
+                <input type="hidden" name="choice" value="third">
+                <h3>Please enter your email address below to receive report for IOCs in your log file</h3>
+                <input type="email" id="email_addr_log_report" name="email_addr_log_report" value="{{ default_email_addr }}" placeholder="Enter email Id" required>
+                <div class="spacer"></div>
+                <h3>Select a log file to upload(max file size 2MB):</h3>
+                <p>Must be a .log or .txt file</p>
+                <!-- Allow only .log and .txt files -->
+                <input type="file" id="log-file-upload" name="log-file-upload" accept=".log, .txt" required>
+                <button type="submit" class="btn">Upload</button>
+            </form>
+            {% endif %}
+        
+            <hr style="border: 1px solid #0056b3; margin: 20px 0;"/>
+            <!-- Display messages -->
+            {% if message %}
+                {% if enter_email %}
+                    <p>
+                        Please enter your email address below if you want to receive updates in next 7 days
+                    </p>
+
+                    <form id="dataForm">
+                        <input type="hidden" name="form_id" value="save_email">  <!-- Hidden input to identify form -->
+                        <input type="email" id="email_addr" name="email_addr" value="{{ default_email_addr }}" required>
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                {% endif %}
+
+                {% if report_button %}
+                    <!-- Add the PDF download button here -->
+                    <a href="{{ url_for('download_pdf') }}" class="btn btn-primary">Download PDF Report</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="spacer"></div>
+    <!-- Display messages in a table -->
+    <div style="display: flex; justify-content: flex-start">
+    <h3 style="margin: 0; font-size: 18px; color: #333;">{{ message|safe }}</h3>
+    {% set country_code = data.get('Country Code', {}).get('Result','')%}
+    {%if country_code %}
+        <img src="https://flagcdn.com/w20/{{ country_code|lower }}.png" alt="Flag" style="flex-shrink: 0; width: 25px; height: 25px; object-fit: cover; margin-left: 7px; border: 1px solid #0056b3; border-radius: 10px;">
+    {%endif%}
+    </div>
+    {% if data %}
+    {% block content %}
+    {% if data %}
+    <div style="position: relative; padding: 15px; background-color: #ffffff; border: 2px solid #0056b3; border-radius: 10px; margin-top: 20px; max-width: 100%; overflow-wrap: break-word; margin-bottom: 10px">
+        <!-- Title "Summary" positioned over the summary text -->
+        <span style="position: absolute; top: -15px; left: 10px; font-size: 16px; font-weight: bold; color: #0056b3; padding: 0 5px; background-color:#ffffff; border: 2px solid #0056b3; border-radius: 10px">
+            Summary
+        </span>
+
+        <p style="font-size: 16px; color: #333; font-weight: bold; padding-top: 10px; word-wrap: break-word; overflow-wrap: break-word;">
+            {{ summary }}
+        </p>
+    </div>
+    
+    
+        {% set harmless_count = 0 %}
+        {% set undetected_count = 0 %}
+        {% set suspicious_count = 0 %}
+        {% set malicious_count = 0 %}
+        {% set flag = {'result': false} %}
+        {% set analysis_results = data.get('Last Analysis Results', {}).get('Result', '') %}
+        {% set result_parts = analysis_results.split(';') %}
+        
+        
+        {% for part in result_parts %}
+            {% set part_trimmed = part|trim %}
+            {% set value = part_trimmed.split(':')[1]|trim|int %}
+        
+        
+            {% if value > 0 %}
+            {% set flag = flag.update({'result': true}) %}  <!-- Directly set flag to true -->
+            {% endif %}
+        {% endfor %}
+        
+
+        <!-- Case 1: Last Analysis Results Exists & > 0-->
+        {% if analysis_results and flag.result %}
+            {% if result_parts|length == 1 %}
+                {% set result_label = result_parts[0].split(':')[0]|trim|lower %}
+                {% if result_label == 'undetected' %}
+                    {% set undetected_count = result_parts[0].split(':')[1]|trim|int %}
+                {% endif %}
+            {% elif result_parts|length == 2 %}
+                {% set result_label_1 = result_parts[0].split(':')[0]|trim %}
+                {% set result_label_2 = result_parts[1].split(':')[0]|trim %}
+                {% if result_label_1 == 'harmless' %}
+                    {% set harmless_count = result_parts[0].split(':')[1]|trim|int%}
+                {% elif result_label_1 == 'suspicious' %}
+                    {% set suspicious_count = result_parts[0].split(':')[1]|trim|int%}
+                {% elif result_label_1 == 'malicious' %}
+                    {% set malicious_count = result_parts[0].split(':')[1]|trim|int%}
+                {% endif %}
+                {% if result_label_2 == 'undetected' %}
+                    {% set undetected_count = result_parts[1].split(':')[1]|trim|int%}
+                {% endif %}
+            {% elif result_parts|length == 3 %}
+                {% set result_label_1 = result_parts[0].split(':')[0]|trim %}
+                {% set result_label_2 = result_parts[1].split(':')[0]|trim %}
+                {% set result_label_3 = result_parts[2].split(':')[0]|trim %}
+                {% if result_label_1 == 'harmless' %}
+                    {% set harmless_count = result_parts[0].split(':')[1]|trim|int%}
+                {% elif result_label_1 == 'suspicious' %}
+                    {% set suspicious_count = result_parts[0].split(':')[1]|trim|int%}
+                {% elif result_label_1 == 'malicious' %}
+                    {% set malicious_count = result_parts[0].split(':')[1]|trim|int%}
+                {% endif %}
+                {% if result_label_2 == 'undetected' %}
+                    {% set undetected_count = result_parts[1].split(':')[1]|trim|int %}
+                {% endif %}
+                {% if result_label_3 == 'suspicious' %}
+                    {% set suspicious_count = result_parts[2].split(':')[1]|trim|int %}
+                {% elif result_label_3 == 'malicious' %}
+                    {% set malicious_count = result_parts[2].split(':')[1]|trim|int %}
+                {% endif %}
+            {% elif result_parts|length == 4 %}
+                {% set result_label_1 = result_parts[0].split(':')[0]|trim %}
+                {% set result_label_2 = result_parts[1].split(':')[0]|trim %}
+                {% set result_label_3 = result_parts[2].split(':')[0]|trim %}
+                {% set result_label_4 = result_parts[3].split(':')[0]|trim %}
+                {% if result_label_1 == 'harmless' %}
+                    {% set harmless_count = result_parts[0].split(':')[1]|trim|int %}
+                {% elif result_label_1 == 'suspicious' %}
+                    {% set suspicious_count = result_parts[0].split(':')[1]|trim|int %}
+                {% elif result_label_1 == 'malicious' %}
+                    {% set malicious_count = result_parts[0].split(':')[1]|trim|int %}
+                {% endif %}
+                {% if result_label_2 == 'undetected' %}
+                    {% set undetected_count = result_parts[1].split(':')[1]|trim|int %}
+                {% endif %}
+                {% if result_label_3 == 'suspicious' %}
+                    {% set suspicious_count = result_parts[2].split(':')[1]|trim|int %}
+                {% elif result_label_3 == 'malicious' %}
+                    {% set malicious_count = result_parts[2].split(':')[1]|trim|int %}
+                {% endif %}
+                {% if result_label_4 == 'malicious' %}
+                    {% set malicious_count = result_parts[3].split(':')[1]|trim|int %}
+                {% elif result_label_4 == 'suspicious' %}
+                    {% set suspicious_count = result_parts[3].split(':')[1]|trim|int %}
+                {% endif %}
+            {% endif %}
+    
+        {% else %}
+        <!-- Case 2: Last Analysis Results Not Found, Look for Malicious, Suspicious, Undetected, and Harmless -->
+        {% set suspicious_result = data.get('Suspicious', {}).get('Result', '') %}
+        {% set malicious_result = data.get('Malicious', {}).get('Result', '') %}
+        {% set undetected_result = data.get('Undetected', {}).get('Result', '') %}
+        {% set harmless_result = data.get('Harmless', {}).get('Result', '') %}
+        
+        {% set suspicious_count = (suspicious_result.split(':')[1] if suspicious_result is string and ':' in suspicious_result else suspicious_result)|trim|int %}
+        {% set malicious_count = (malicious_result.split(':')[1] if malicious_result is string and ':' in malicious_result else malicious_result)|trim|int %}
+        {% set undetected_count = (undetected_result.split(':')[1] if undetected_result is string and ':' in undetected_result else undetected_result)|trim|int %}
+        {% set harmless_count = (harmless_result.split(':')[1] if harmless_result is string and ':' in harmless_result else harmless_result)|trim|int %}
+        
+            {%endif%}
+
+        <!-- Debugging: Check the values that will be used in the chart -->
+        <!-- {{data.get('Abuse Confidence Score', {}).get('Result', '')}}
+        <p>Harmless: {{ harmless_count }}</p>
+        <p>Undetected: {{ undetected_count }}</p>
+        <p>Suspicious: {{ suspicious_count }}</p>
+        <p>Malicious: {{ malicious_count }}</p> -->
+    
+        <!-- Create a canvas for the pie chart -->
+        <div class="chart-container" style="display: flex; align-items: center; justify-content: space-between;">
+            <!-- Pie chart -->
+            <div style="width: 50%;">
+                <canvas id="analysisChart"></canvas>
+                <div class="footnote">Source: VirusTotal</div>
+            </div>
+            
+            <!-- Circular progress chart (Doughnut chart) -->
+            <div style="width: 50%;">
+                <canvas id="confidenceChart"></canvas>
+                {% if data.get('Abuse Confidence Score', {}) %}
+                <div class="footnote">Source: AbuseIPDB</div>
+                {%endif%}
+            </div>
+        </div>
+        
+        <!-- Include Chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        
+        <script>
+            // Prepare the data for the pie chart from the analysis results
+            const chartData = {
+                labels: ['Harmless', 'Undetected', 'Suspicious', 'Malicious'],
+                datasets: [{
+                    data: [
+                        {{ harmless_count }},
+                        {{ undetected_count }},
+                        {{ suspicious_count }},
+                        {{ malicious_count }}
+                    ],
+                    backgroundColor: ['#2ecc71', '#95a5a6', '#f39c12', '#e74c3c'],
+                    borderColor: ['#27ae60', '#7f8c8d', '#e67e22', '#c0392b'],
+                    borderWidth: 1
+                }]
+            };
+        
+            // Create the pie chart
+            const ctx = document.getElementById('analysisChart').getContext('2d');
+            const analysisChart = new Chart(ctx, {
+                type: 'pie',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return tooltipItem.label + ': ' + tooltipItem.raw + ' instances';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+
+        {% if data.get('Abuse Confidence Score', {}) %}
+        <script>
+            // Prepare the Abuse Confidence Score value (assuming it's between 0 and 100)
+            const abuseConfidenceScore = {{ data.get('Abuse Confidence Score', {}).get('Result', 0) }};
+            
+            // Create the circular progress chart (Doughnut chart)
+            const confidenceCtx = document.getElementById('confidenceChart').getContext('2d');
+            const confidenceChart = new Chart(confidenceCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Abuse Confidence Score'],
+                    datasets: [{
+                        data: [abuseConfidenceScore, 100 - abuseConfidenceScore],
+                        backgroundColor: ['#e74c3c', '#ecf0f1'],
+                        borderColor: ['#e74c3c', '#bdc3c7'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    cutoutPercentage: 80,  // makes it look like a ring
+                    plugins: {
+                        tooltip: {
+                            enabled: true // Disable tooltips to make it cleaner
+                        },
+                        legend: {
+                            display: true // Hides the legend for a cleaner look
+                        }
+                    }
+                }
+            });
+        </script>
+    {%endif%}
+    {% endif %}
+    {% endblock %}
+    
+    <!-- Display the table for key-value pairs -->
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Attribute</th>
+                <th style="width: 60%;">Value</th>
+                <th style="width: 15%;">Source</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key, value in data.items() %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value.Result|safe }}</td>  <!-- Using the safe filter to allow HTML rendering-->
+                    <td><a href="{{external_links.get(value.Source)}}" target="_blank">{{ value.Source }}</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    <div class="spacer"></div>
+    <div class="spacer"></div>
+    </div>
+    
+
+    <!-- Modal for displaying success/failure message -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalMessage"></h2>
+            <button id="okayButton">Okay</button>
+        </div>
+    </div>
+
+    <script>
+        // Get modal elements
+        var modal = document.getElementById("resultModal");
+        var modalMessage = document.getElementById("modalMessage");
+        var span = document.getElementsByClassName("close")[0];
+        var okayBtn = document.getElementById("okayButton");
+
+        // Function to show modal with message
+        function showModal(message) {
+            modalMessage.textContent = message;
+            modal.style.display = "block";
+        }
+
+        // Close modal when 'x' or 'Okay' is clicked
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+        okayBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Handle form submission with AJAX
+        document.getElementById('dataForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var formData = new FormData(this);
+
+            fetch('/subscribe', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Show modal based on success/failure response
+                if (data.success) {
+                    showModal(data.message);
+                } else {
+                    showModal(data.message);
+                }
+            })
+            .catch(error => {
+                showModal('Error occurred while saving data.');
+            });
+        });
+    </script>
+
+{% endblock page_content %}

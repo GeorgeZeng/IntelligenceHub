@@ -1,0 +1,400 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+    background-color: #f4f7fa; /* Light background color for content */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Main content area */
+main {
+    flex: 1;
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header styling */
+header {
+    background-color: #0056b3;  /* Main blue color */
+    color: white;
+    text-align: left;
+    padding: 15px 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li {
+    margin: 0 20px;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.navbar a:hover {
+    background-color: #2980b9; /* Lighter blue on hover */
+    text-decoration: underline;
+}
+
+/* Content styling */
+.content {
+    padding: 30px;
+    margin-top: 20px;
+}
+
+h3 {
+    font-size: 18px;
+    color: #333;
+}
+
+/* Radio buttons and form styling */
+.radio-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.radio-group input[type="radio"] {
+    accent-color: #0056b3; /* Main blue color for radio buttons */
+}
+
+.radio-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.spacer {
+    height: 20px;
+}
+
+input, button {
+    font-size: 16px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input[type="text"], input[type="email"], input[type="file"] {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+    background-color: #fafafa;
+    color: #333;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="file"]:focus {
+    border-color: #0056b3; /* Blue border on focus */
+    background-color: #fff;
+}
+
+button {
+    background-color: #0056b3; /* Main blue button color */
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #2980b9; /* Lighter blue when hovered */
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    color: #555;
+}
+
+th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: 600;
+}
+
+td {
+    background-color: #f9f9f9;
+}
+
+td a {
+    color: #0056b3; /* Links in the table are the main blue color */
+    text-decoration: none;
+}
+
+td a:hover {
+    text-decoration: underline;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 8px;
+    width: 60%;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+    color: #aaa;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover, .close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/* Footer styles */
+footer {
+    background-color: #0056b3; /* Main blue color */
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 14px;
+    margin-top: 40px;
+}
+
+/* Button styling */
+.btn {
+    background-color: #0056b3; /* Main blue color */
+    color: white;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    display: inline-block;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color: #2980b9; /* Lighter blue on hover */
+    transform: translateY(-2px);
+}
+
+/* Flexbox container for layout */
+.flex-container {
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+}
+
+.logo {
+    max-width: 150px;
+    margin-left: 100px;
+    background-color: #eaf2f8;
+}
+
+
+.story-panel {
+    background-color: #eaf2f8;
+    padding: 25px;
+    border-radius: 8px;
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Form container styling */
+.form-container {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-left: 0px;
+}
+
+h3 {
+    font-size: 18px;
+    color: #0056b3; /* Use main blue for headings */
+}
+
+/* Optional: Add space around the footer */
+footer {
+    margin-top: 60px;
+}
+
+table td:first-child {
+    font-weight: bold;
+}
+
+/* Contact Form Styles */
+.contact-title {
+    text-align: center;
+    color: #0056b3;
+    font-size: 36px;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.contact-form-container {
+    width: 700px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+input, textarea {
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    border-color: #0056b3;
+    outline: none;
+}
+
+textarea {
+    resize: none;
+}
+
+button {
+    background-color: #0056b3;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+button:active {
+    background-color: #003b73;
+}
+
+#message{
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+    background-color: #fafafa;
+    color: #333;
+    font-family: inherit;
+}
+
+/* Container for the pie chart and footnote */
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px; /* Set a max width for the chart container */
+    margin: 0 auto;  /* Center the container horizontally */
+    padding-bottom: 20px; /* Space for the footnote */
+    text-align: center;  /* Center the footnote and chart */
+}
+
+/* Make sure the canvas (pie chart) is responsive */
+#analysisChart, #confidenceChart {
+    width: 100% !important;  /* Ensures the chart fills the container */
+    height: 300px !important; /* Maintain aspect ratio */
+    max-height: 300px; /* Set a max height to avoid chart becoming too large */
+}
+
+/* Footnote styling */
+.footnote {
+    font-size: 12px;  /* Set footnote font size */
+    color: #0056b3;   /* Use the theme color for footnote */
+    margin-top: 10px;  /* Space above the footnote */;
+    bottom: -15px;     /* Position it below the chart */
+    width: 100%;
+}

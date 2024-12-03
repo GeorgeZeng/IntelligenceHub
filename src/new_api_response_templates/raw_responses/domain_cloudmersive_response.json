@@ -1,0 +1,25 @@
+{
+    "source": "cloudmersive",
+    "success": true,
+    "data": {
+        "domain": "statsrvv.com",
+        "quality_score": 0.0,
+        "valid_domain": true,
+        "whois_info": {
+            "registrant_name": "46Fd2b65bb684c679f76faaffe392ccd",
+            "registrant_organization": "Privacy service provided by Withheld for Privacy ehf",
+            "registrant_email": "46fd2b65bb684c679f76faaffe392ccd.protect@withheldforprivacy.com",
+            "registrant_street": "Kalkofnsvegur",
+            "registrant_city": "Reykjavik",
+            "registrant_state_or_province": "Capital Region",
+            "registrant_postal_code": "101",
+            "registrant_country": "Iceland",
+            "registrant_raw_address": "Kalkofnsvegur, Reykjavik, Capital Region, 101, Iceland",
+            "registrant_telephone": "+3544212434",
+            "whois_server": null,
+            "raw_text_record": null,
+            "created_dt": null
+        }
+    },
+    "error": null
+}

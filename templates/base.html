@@ -1,0 +1,37 @@
+<!-- /templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligence Hub</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/NewLogo.png') }}" type="image/png">
+    <link href="{{ url_for('static', filename='styles/style.css') }}" rel="stylesheet" />
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <ul>
+                <!--<li><img src="{{ url_for('static', filename='images/IntelHubLogo.png') }}" alt="Intelligence Hub" style="width: 100px; height: auto;"></li>-->
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        {% block page_content %}{% endblock page_content %}
+       
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Fall MICS Capstone Team 1.1. All rights reserved.</p>
+    </footer>
+    
+</body>
+
+</html>

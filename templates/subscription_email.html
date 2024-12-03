@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            word-wrap: break-word; /* Break long words to avoid overflow */
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        td {
+            vertical-align: top;
+        }
+        .diff {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    {% if unsubscribe_link %}
+        <p>
+            Please check {{ unsubscribe_link }} if you don't want to receive report from <strong>Intelligence Hub</strong> in the future.
+        </p>
+    {% endif %}
+
+    {% if datasets %}
+        <p>Below are the result:</p>
+
+        {% for ioc_name, external_links, dataset in zip(ioc_names, list_of_external_links, datasets) %}
+        <h3>IOC {{ loop.index }}: {{ioc_name}}</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 25%;">Attribute</th>
+                    <th style="width: 60%;">Value</th>
+                    <th style="width: 15%;">Source</th>
+                </tr>
+            </thead>
+            {% for key, val1, val2, is_diff in dataset %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ val1.Result|safe }}</td>  <!-- Using the safe filter to allow HTML rendering-->
+                    <td><a href="{{external_links.get(val1.Source)}}" target="_blank">{{ val1.Source }}</a></td>
+                </tr>
+                {% if is_diff %}
+                <tr>
+                    <td class="diff">{{ key }}(previous)</td>
+                    <td class="diff">{{ val2.Result|safe }}</td>  <!-- Using the safe filter to allow HTML rendering-->
+                    <td class="diff"><a href="{{external_links.get(val2.Source)}}" target="_blank">{{ val2.Source }}</a></td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>

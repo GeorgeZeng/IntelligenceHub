@@ -1,0 +1,18 @@
+{
+    "Source": "abuseipdb",
+    "Identifier": "109.120.176.11",
+    "Domain": "axiom.com.sg",
+    "Is Public": true,
+    "Is Whitelisted": false,
+    "Abuse Confidence Score": 100,
+    "Country": "Germany",
+    "Country Code": "DE",
+    "IP Version": 4,
+    "ISP": "Axiom Services Pte. Ltd.",
+    "Hostnames": "AKoryakin.aeza.network",
+    "Usage Type": "Data Center/Web Hosting/Transit",
+    "Is Tor": false,
+    "Total Reports": 7919,
+    "Number of Distinct Users": 1012,
+    "Last Reported At": "2024-11-08T19:21:02+00:00"
+}

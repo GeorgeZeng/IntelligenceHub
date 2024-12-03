@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+<h1 style="text-align: center; font-size: 2.5em; font-weight: bold; margin-bottom: 20px;">About Us</h1>
+<div class="story-panel">
+    <p style="font-size: 18px; line-height: 1.8; text-align: center; padding: 0 20px; font-weight: bold;">
+        We are a team of four UC Berkeley MICS students who developed <i>Intelligence Hub</i> as part of our Capstone project.
+        <div class="spacer"></div>
+    </p>
+    <p style="font-size: 18px; line-height: 1.8; text-align: center; padding: 0 20px; font-weight: bold;">
+        Our platform is a comprehensive, all-in-one solution that consolidates data from trusted sources such as VirusTotal, Cloudmersive, AbuseIPDB, and CriminalIP.
+        This integration enables users to efficiently verify Indicators of Compromise (IOCs) across multiple threat intelligence databases in a single location,
+        saving valuable time while enhancing confidence in threat detection.
+        <div class="spacer"></div>
+    </p>
+    <p style="font-size: 18px; line-height: 1.8; text-align: center; padding: 0 20px; font-weight: bold;">
+        What sets Intelligence Hub apart is its advanced functionality. Beyond basic lookups, our system offers robust log analysis capabilities. Users can upload log files, automatically extract IOCs,
+        and receive detailed, actionable threat reports, streamlining the threat identification and response process.
+    </p>
+</div>
+{% endblock page_content %}

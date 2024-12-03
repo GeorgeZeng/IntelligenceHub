@@ -1,0 +1,13 @@
+{
+    "Source": "virustotal",
+    "Identifier": "109.120.176.11",
+    "ASN": 210644,
+    "Owner": "Aeza International Ltd",
+    "Country": "DE",
+    "Continent": "EU",
+    "Network": "109.120.176.0/22",
+    "Reputation": -5,
+    "Last Modification Date": "2024-11-08 14:21:39",
+    "Total Votes": "harmless: 0; malicious: 5",
+    "Last Analysis Results": "harmless: 46; undetected: 26; malicious: 18; suspicious: 4"
+}
